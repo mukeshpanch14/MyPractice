@@ -1,63 +1,61 @@
-/*
-Minimum Path
-*/
+//Longest Increasing Sequence in an ArrayList
+// Using Normal logic(Non DP)
 
-public class Test{
-  
-  public int min(int a, int b){
-    if(a<b)
-      return a;
-    else
-      return b;
+import java.util.*;
+class Test{
+  void PrintArray(int arr[]){
+    int len=arr.length;
+    for(int i=0;i<len;i++){
+      System.out.print(arr[i]+" ");
+    }
+    System.out.println();
   }
-  public static void main(String args[]){
-    int arr[][]={{1,2,3,3},
-                 {4,8,2,5},
-                 {1,5,3,1}};
-    
-    int r=arr.length;
-    int c=arr[0].length;
-    
-    //System.out.println(r+" "+c);
-    int init_val=arr[0][0];
-    int i=0;
-    int j=0;
-    
-    int curr_value;
-    int curr_i;
-    int curr_j;
-    while(i<r-1 && j<c-1){
+  
+  void PrintArrayList(ArrayList<Integer> list){
+    Iterator<Integer> itr=list.iterator();
+    while(itr.hasNext()){
+      System.out.print((int)itr.next()+" ");
+    }
+    System.out.println();
+  }
+  
+  ArrayList<Integer> LongIncSequence(int in_arr[]){
+    int len=in_arr.length;
+    int max_len=1;
+    ArrayList<Integer>max_list=new ArrayList<Integer>();
+    ArrayList<Integer>list=new ArrayList<Integer>();
+    for(int i=0;i<len;i++){
       
-      if(arr[i][j+1]<arr[i+1][j]){
-        curr_value=arr[i][j+1];
-        curr_i=i;
-        curr_j=j+1;
+      int lis=1;
+     
+      list.add(in_arr[i]);
+      for(int j=i+1;j<len;j++){
+        if(in_arr[i]<in_arr[j]){
+          list.add(in_arr[j]);
+          lis++;
+        }
+          
       }
-      else{
-        curr_value=arr[i+1][j];
-        curr_i=i+1;
-        curr_j=j;
-      }
+      //System.out.println(list);
       
-      if(arr[i+1][j+1]<curr_value){
-        curr_value=arr[i+1][j+1];
-        curr_i=i+1;
-        curr_j=j+1;
+      if(max_len<lis){
+        max_len=lis;
+        max_list=new ArrayList<Integer>(list);
       }
-      else{
-        curr_value=curr_value;
-        curr_i=curr_i;
-        curr_j=curr_j;
-      }
-      
-      i=curr_i;
-      j=curr_j;
-      
-      System.out.println(curr_value);
-        
-        
+       list.clear();
     }
     
+    
+    return max_list;
+  }
+  public static void main(String args[]){
+    int in_arr[]={50, 3, 10, 7, 40, 80};
+    Test t=new Test();
+    t.PrintArray(in_arr);
+    
+    ArrayList<Integer> ar=t.LongIncSequence(in_arr);
+//    t.PrintArrayList(ar);
+    System.out.println(ar);
     
   }
 }
