@@ -1,63 +1,30 @@
-/*
-Minimum Path
-*/
-
 public class Test{
+
+  public int makechange(int coins[],int money, int index){
+   if(money==0)
+    return 0;
   
-  public int min(int a, int b){
-    if(a<b)
-      return a;
-    else
-      return b;
+  if(index>=coins.length)
+    return 1;
+
+    int amountwithcoin=0;
+    int ways=0;
+
+    while(amountwithcoin<=money){
+      int remaining=money-amountwithcoin;
+      amountwithcoin=amountwithcoin+coins[index];
+      ways=ways+makechange(coins,remaining,index+1);
+      
+    }
+
+    return ways;
   }
   public static void main(String args[]){
-    int arr[][]={{1,2,3,3},
-                 {4,8,2,5},
-                 {1,5,3,1}};
-    
-    int r=arr.length;
-    int c=arr[0].length;
-    
-    //System.out.println(r+" "+c);
-    int init_val=arr[0][0];
-    int i=0;
-    int j=0;
-    
-    int curr_value;
-    int curr_i;
-    int curr_j;
-    while(i<r-1 && j<c-1){
-      
-      if(arr[i][j+1]<arr[i+1][j]){
-        curr_value=arr[i][j+1];
-        curr_i=i;
-        curr_j=j+1;
-      }
-      else{
-        curr_value=arr[i+1][j];
-        curr_i=i+1;
-        curr_j=j;
-      }
-      
-      if(arr[i+1][j+1]<curr_value){
-        curr_value=arr[i+1][j+1];
-        curr_i=i+1;
-        curr_j=j+1;
-      }
-      else{
-        curr_value=curr_value;
-        curr_i=curr_i;
-        curr_j=curr_j;
-      }
-      
-      i=curr_i;
-      j=curr_j;
-      
-      System.out.println(curr_value);
-        
-        
-    }
-    
-    
+    Test t= new Test();
+    int coins[]={1,2,3};
+    int money=4;
+
+    int ans=t.makechange(coins,money,0);
+    System.out.println(ans);
   }
 }
