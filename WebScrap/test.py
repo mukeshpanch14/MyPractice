@@ -1,16 +1,21 @@
+import csv
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
 
-html=urlopen("http://www.pythonscraping.com/pages/page3.html")
+html=urlopen("http://en.wikipedia.org/wiki/Comparison_of_text_editors")
 bsObj=BeautifulSoup(html)
 
-for child in bsObj.find("table",{"id":"giftList"}).children:
-	print(child)
+table=bsObj.findAll("table",{"class":"wikitable"})[0]
+rows=table.findAll("tr")
 
+csvFile=open("../files/editors.csv",'wt')
+writer=csv.writer(csvFile)
 
-for sibling in bsObj.find("table",{"id":"giftList"}).tr.next_siblings:
-	print(sibling)
-
-
-print(bsObj.find("img",{"src":"../img/gifts/img1.jpg"
-                       }).parent.previous_sibling.get_text())
+try:
+    for row in rows:
+    csvRow=[]
+    for cell in row.findAll(['td','th']):
+        csvRow.append(cell.get_text())
+        writer.writerow(csvRow)
+finally:
+    csvFile.close()
