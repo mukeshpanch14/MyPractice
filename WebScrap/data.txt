@@ -1,0 +1,8 @@
+<div class="image">
+        <a href="http://www.example.com/eg1">Content1<img  
+        src="http://image.example.com/img1.jpg" /></a>
+        </div>
+        <div class="image">
+        <a href="http://www.example.com/eg2">Content2<img  
+        src="http://image.example.com/img2.jpg" /> </a>
+        </div>
